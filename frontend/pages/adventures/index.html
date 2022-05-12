@@ -33,17 +33,21 @@
         </div>
     </nav>
 
+    <!-- Content section -->
     <div class="container">
         <div class="content">
+            <!-- Page heading and description -->
             <h1>Explore all adventures</h1>
             <p style="font-size: 24px">
                 Here's a list of places that you can explore in city
             </p>
             <div class="mb-5">
+                <!-- Filters section -->
                 <div class="filter-bar d-flex align-items-center">
                     <div class="filter-bar-tile">
                         <label for="duration">Filters:</label>
                     </div>
+                    <!-- Duration filter (select one) -->
                     <div class="filter-bar-tile d-flex align-items-center">
                         <select class="form-control" name="duration" id="duration-select"
                             onchange="selectDuration(event)">
@@ -59,6 +63,7 @@
                             Clear
                         </div>
                     </div>
+                    <!-- Category filter (select one or many) -->
                     <div class="filter-bar-tile d-flex align-items-center">
                         <select class="form-control" id="category-select" onchange="selectCategory(event)">
                             <option disabled selected value="">Add Category</option>
@@ -72,14 +77,16 @@
                         </div>
                     </div>
                 </div>
+                <!-- Section to display all selected categories  -->
                 <div class="mt-2" id="category-section">
                     <div class="d-flex align-items-center" id="category-list"></div>
                 </div>
             </div>
+            <!-- Display Adventures cards -->
             <div class="row" id="data"></div>
         </div>
     </div>
-
+    <!-- Footer -->
     <footer>
         <div class="container">© QTrip 2020</div>
     </footer>
