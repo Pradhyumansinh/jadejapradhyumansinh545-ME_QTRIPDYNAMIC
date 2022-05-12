@@ -17,7 +17,7 @@ const html = fs.readFileSync(
   "utf8"
 );
 jest.dontMock("fs");
-jest.spyOn(window, "alert").mockImplementation(() => {});
+jest.spyOn(window, "alert").mockImplementation(() => { });
 
 describe("Adventure Detail Page Tests", function () {
   const { reload } = window.location;
