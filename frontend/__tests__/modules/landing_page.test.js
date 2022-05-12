@@ -33,29 +33,25 @@ describe("Landing Page Tests", function () {
     expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/cities"));
     expect(data).toBeInstanceOf(Array);
     expect(data).toEqual(mockCitiesData);
+
   });
 
-  it("fetchCities() - Catches error and returns null, if fetch call fails ", async () => {
-    fetch.mockReject(new Error(null));
+  it("Catches error and returns null, if fetch call fails ", async () => {
+    fetch.mockReject(() => Promise.reject("API failure"));
 
-    const data = fetchCities();
+    const data = await fetchCities();
 
-    await expect(data).resolves.toEqual(null);
+    expect(data).toEqual(null);
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).not.toHaveBeenCalledWith(expect.stringContaining("//cities"));
     expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/cities"));
   });
 
-  it("addCityToDOM() - Adds a new city, London with id value of <a> tag set as london", function () {
-    addCityToDOM("london", "London", "London is the capital of UK", "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format");
+  it("Adds a new City - London", function () {
+    addCityToDOM("london", "London", "London", "London");
     expect(document.getElementById("london")).toBeTruthy();
+
+    //add checks for tile and parent div has an id of data
   });
 
-  it("addCityToDOM() - Correctly links city card to the corresponding Adventures page", function () {
-    const expected = "adventures/?city=london";
-    addCityToDOM("london", "London", "London is the capital of UK", "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format");
-    expect(document.getElementById("london").href).toEqual(
-      expect.stringContaining(expected)
-    );
-  });
 });
