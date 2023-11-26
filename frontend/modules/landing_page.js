@@ -2,15 +2,16 @@ import config from "../conf/index.js";
 
 async function init() {
   //Fetches list of all cities along with their images and description
+
   let cities = await fetchCities();
-
+  
+  cities.forEach((key) => {
+    addCityToDOM(key.id, key.city, key.description, key.image);
+  });
+  
   //Updates the DOM with the cities
-  if (cities) {
-    cities.forEach((key) => {
-      addCityToDOM(key.id, key.city, key.description, key.image);
-    });
-  }
-
+  
+    
   // console.log(cities);
 }
 
@@ -18,14 +19,17 @@ async function init() {
 async function fetchCities() {
   // TODO: MODULE_CITIES
   // 1. Fetch cities using the Backend API and return the data
-  let fetchData = await fetch(config.backendEndpoint + "/cities");
-  if(!fetchData){
-    throw new Error(null);
+  try {
+    let fetchData = await fetch(config.backendEndpoint + "/cities");
+    let cities = await fetchData.json();
+    if(!cities){
+      throw new error(null);
+    }
+    return cities;
+  } catch (error) {
+    return null;
   }
-  else{
-    let result = await fetchData.json();
-    return result;
-  }
+ 
 }
 
 let cardContent = document.querySelector("#data");
