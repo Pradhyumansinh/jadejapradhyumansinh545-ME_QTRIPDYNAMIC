@@ -44,7 +44,9 @@
     <!-- Content section -->
     <div class="container">
         <div class="content text-white">
-            <div class="row" id="data"></div>
+            <div class="row" id="data">
+                
+            </div>
         </div>
     </div>
 
@@ -61,8 +63,7 @@
 
     <!-- Script for plugging in HTML of the Content section -->
     <script type="module">
-        import { init } from "./modules/landing_page.js";
-
+        import { init,fetchCities } from "./modules/landing_page.js";
         //entry point (executed when DOM is loaded)
         (async function () {
             init();
