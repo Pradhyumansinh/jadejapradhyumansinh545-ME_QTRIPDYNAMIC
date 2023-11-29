@@ -38,25 +38,38 @@ function addCityToDOM(id, city, description, image) {
   // TODO: MODULE_CITIES
   // 1. Populate the City details and insert those details into the DOM
   let data = document.querySelector("#data")
-  let mainAnchorTileDiv = document.createElement("a");
-  mainAnchorTileDiv.setAttribute("id",id);
-  mainAnchorTileDiv.setAttribute("class","tile col-sm-6 col-md-3 col-lg-3");
-  mainAnchorTileDiv.setAttribute("href","pages/adventures/?city="+id);
+
+  let mainDiv = document.createElement("div");
+  mainDiv.setAttribute("id",id);
+  mainDiv.setAttribute("class","col-sm-6 col-md-3 col-lg-3 mb-3");
+
+  let anchorTag = document.createElement("a")
+  anchorTag.setAttribute("href","pages/adventures/?city="+id);
+
+  let mainTileDiv = document.createElement("a");
+  mainTileDiv.setAttribute("class","tile");
+
   let imgTileDiv = document.createElement("img");
   imgTileDiv.setAttribute("id",id);
   imgTileDiv.setAttribute("src",image);
-  imgTileDiv.setAttribute("class","mt-3");
-  mainAnchorTileDiv.append(imgTileDiv);
+
+  mainTileDiv.append(imgTileDiv);
+
   let textTileDiv = document.createElement("div");
   textTileDiv.setAttribute("class","tile-text");
+
   let textDiv = document.createElement("p");
   textDiv.textContent = city;
   textTileDiv.append(textDiv);
+
   let textDescDiv = document.createElement("p");
   textDescDiv.textContent = description;
   textTileDiv.append(textDescDiv);
-  mainAnchorTileDiv.append(textTileDiv)
-  data.append(mainAnchorTileDiv);
+  mainTileDiv.append(textTileDiv);
+
+  anchorTag.append(mainTileDiv);
+  mainDiv.append(anchorTag);
+  data.append(mainDiv);
 }
 
 export { init, fetchCities, addCityToDOM };

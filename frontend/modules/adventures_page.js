@@ -5,13 +5,23 @@ import config from "../conf/index.js";
 function getCityFromURL(search) {
   // TODO: MODULE_ADVENTURES
   // 1. Extract the city id from the URL's Query Param and return it
-
+  let urlParams = new URLSearchParams(search);
+  let cityValue = urlParams.get("city");
+  return cityValue;
 }
 
 //Implementation of fetch call with a paramterized input based on city
 async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES
   // 1. Fetch adventures using the Backend API and return the data
+  try {
+    let url = config.backendEndpoint + `/adventures/?city=${city}`;
+    let fetchoData = await fetch(url);
+    let Adventures = await fetchoData.json();
+    return Adventures;
+  } catch (error) {
+    return null;
+  }
 
 }
 
@@ -19,7 +29,33 @@ async function fetchAdventures(city) {
 function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
+  adventures.forEach((adventure)=>{
+    let {id,category,image,name,costPerHead,duration} = adventure;
+    let dataDiv = document.getElementById("data");
 
+    let mainDiv = document.createElement("div");
+    mainDiv.setAttribute("class","col-6 col-lg-3");
+
+    mainDiv.innerHTML = `
+      <a href="${config.backendEndpoint}/detail/?adventure=${id}" id="${id}">
+        
+          <div class="activity-card mb-4">
+            <div class="category-banner">${category}</div>  
+            <img src="${image}" alt="" />
+            <div class="d-flex justify-content-between w-100 px-2 pt-1">
+              <h6>${name}</h6>
+              <h6>${costPerHead}</h6>
+            </div>
+            <div class="d-flex justify-content-between w-100 px-2 pb-1">
+              <h6>Duration</h6>
+              <h6>${duration}</h6>
+            </div>
+        </div>
+      </a>
+    `;
+    dataDiv.append(mainDiv);
+    
+  });
 }
 
 //Implementation of filtering by duration which takes in a list of adventures, the lower bound and upper bound of duration and returns a filtered list of adventures.
