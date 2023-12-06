@@ -88,7 +88,7 @@
     </div>
     <!-- Footer -->
     <footer>
-        <div class="container">© QTrip 2023</div>
+        <div class="container">© QTrip 2020</div>
     </footer>
 
     <!-- Bootstrap script -->
@@ -146,7 +146,20 @@
             // TODO: MODULE_FILTERS
             // 1. Change the DOM to show the selected duration filter. Use the provided input event
             // 2. Invoke saveFiltersToLocalStorage here
+            document.getElementById("data").textContent = "";
+            document.getElementById("category-list").textContent = "";
 
+            let duration = event.target.value;
+            document.getElementById("duration-select").selectedIndex = 0;
+
+            filters["duration"] = duration;
+            // filters["duration"] = filters["duration"].filter(onlyUnique);
+
+
+            generateFilterPillsAndUpdateDOM(filters);
+            saveFiltersToLocalStorage(filters);
+            let filteredAdventures = filterFunction(adventures, filters);
+            addAdventureToDOM(filteredAdventures);
         }
 
         //executed when clear button is clicked on duration filter dropdown
@@ -154,7 +167,14 @@
             // TODO: MODULE_FILTERS
             // 1. Change the DOM to clear the Duration filter. Refer clearCategory() below
             // 2. Invoke saveFiltersToLocalStorage here
+            document.getElementById("data").textContent = "";
+            document.getElementById("category-list").textContent = "";
 
+            filters["duration"] = [];
+            generateFilterPillsAndUpdateDOM(filters);
+            saveFiltersToLocalStorage(filters);
+            let filteredAdventures = filterFunction(adventures, filters);
+            addAdventureToDOM(filteredAdventures);
         }
 
 
@@ -172,6 +192,7 @@
 
 
             generateFilterPillsAndUpdateDOM(filters);
+            saveFiltersToLocalStorage(filters);
             let filteredAdventures = filterFunction(adventures, filters);
             addAdventureToDOM(filteredAdventures);
 
@@ -185,6 +206,8 @@
             document.getElementById("category-list").textContent = "";
 
             filters["category"] = [];
+            generateFilterPillsAndUpdateDOM(filters);
+            saveFiltersToLocalStorage(filters);
             let filteredAdventures = filterFunction(adventures, filters);
             addAdventureToDOM(filteredAdventures);
 
