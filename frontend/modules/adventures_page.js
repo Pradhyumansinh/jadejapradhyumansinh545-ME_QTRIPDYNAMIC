@@ -35,10 +35,8 @@ function addAdventureToDOM(adventures) {
 
     let mainDiv = document.createElement("div");
     mainDiv.setAttribute("class","col-6 col-lg-3");
-
     mainDiv.innerHTML = `
-      <a href="${config.backendEndpoint}/detail/?adventure=${id}" id="${id}">
-        
+      <a href="/frontend/pages/adventures/detail/?adventure=${id}" id="${id}">
           <div class="activity-card mb-4">
             <div class="category-banner">${category}</div>  
             <img src="${image}" alt="" />
