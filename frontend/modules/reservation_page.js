@@ -37,10 +37,19 @@ function addReservationToTable(reservations) {
     1. The date of adventure booking should appear in the format D/MM/YYYY (en-IN format) Example:  4/11/2020 denotes 4th November, 2020
     2. The booking time should appear in a format like 4 November 2020, 9:32:31 pm
   */
- reservations.forEach((element,index) => {
+ reservations.forEach((element,idx) => {
     let tblRow = document.createElement("tr");
+    let dt = new Date(element.time).toLocaleString("en-IN",{
+      year:"numeric",
+      day:"numeric",
+      month:"long",
+      hour:"numeric",
+      minute:"numeric",
+      second:"numeric",
+      hour12:true,
+    });
+    let newDt = dt.split(' at').join(',');
     tblRow.innerHTML = `
-      <th scope="row">${element.id}</th>
       <td>${element.id}</td>
       <td>${element.name}</td>
       <td>${element.adventureName}</td>
@@ -48,20 +57,12 @@ function addReservationToTable(reservations) {
       <td>${new Date(element.date).toLocaleString("en-IN",{
         day:"numeric",
         year:"numeric",
-        month:"long",
+        month:"numeric",
       })}</td>
       <td>${element.price}</td>
-      <td>${new Date(element.time).toLocaleString("en-IN",{
-        year:"numeric",
-        day:"numeric",
-        month:"long",
-        hour:"numeric",
-        minute:"numeric",
-        second:"numeric",
-        hour12:true,
-      })}</td>
-      <td>
-      <a class="reservation-visit-button" href="detail/?adventure=${element.adventure}">Visit Adventure</a>
+      <td>${newDt}</td>
+      <td id=${element.id}>
+          <a class="reservation-visit-button" href="../detail/?adventure=${element.adventure}">Visit Adventure</a>
       </td>
     `;
     document.getElementById("reservation-table").appendChild(tblRow);
